@@ -3,7 +3,7 @@
 
 head为头文件目录。
 
-服务端(server)：temp存放判题时的临时文件，正常情况下应该为空。data存放.in文件和.ans文件（题解中有说明）
+服务端(server)：temp存放判题时的临时文件，正常情况下应该为空(git无法上传空文件夹，需要添加.gitkeep空文件)。data存放.in文件和.ans文件（题解中有说明）
 
 客户端1(client1)：upload内为上传的题目，为正确的a+b.c
 
