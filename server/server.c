@@ -17,7 +17,7 @@ void mov_msg(char *msg, int fd);
 
 void *server_thread(void *var);
 
-static int cnt = 0;
+static int cnt = 0, num = 0;
 int push_();
 void pop_();
 
@@ -67,7 +67,7 @@ void *server_thread(void *var)
 	Pthread_detach(pthread_self());
 	free(var);
 
-	int a = push();
+	int a = push_();
 	int b = a % 10;
 	a /= 10;
 	
@@ -89,6 +89,7 @@ void *server_thread(void *var)
 	fprintf(stdout, "\n");
 	
 	Close(connfd);
+	pop_();
 	
 	return NULL;
 }
@@ -276,11 +277,19 @@ void mov_msg(char *msg, int fd)
 	Rio_writen(fd, msg, strlen(msg));
 }
 
-int push()
+int push_()
 {
 	cnt++;
 	if(cnt > 99)
 		cnt = 1;
+	
+	num++;
+	while(num > 99);//waiting for other threads end
 
 	return cnt;
+}
+
+void pop_()
+{
+	num--;
 }
